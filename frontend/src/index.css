@@ -1,0 +1,19 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Ubuntu&family=Varela+Round&display=swap');
+@import "tailwindcss";
+
+*{
+    font-family: "Inter", sans-serif;
+}
+
+@layer base{
+    button{
+        @apply cursor-pointer;
+    }
+    input:not([type="checkbox"]){
+        @apply outline-none focus:ring border border-gray-300 focus:ring-blue-500 focus:border-blue-500 rounded-lg;
+    }
+    textarea{
+       @apply outline-none focus:ring border border-gray-300 focus:ring-blue-500 focus:border-blue-500 rounded-lg resize-none;
+}
+}
