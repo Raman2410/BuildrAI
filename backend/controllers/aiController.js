@@ -7,32 +7,38 @@ import Resume from "../models/Resume.js";
 import openai from "../configs/ai.js";
 
 
-export const enhanceSummary = async(req,res)=>{
-    try {
-         const {userContent} = req.body;
-         if(!userContent){
-            return res.status(400).json({message:"missing required fields"});
+export const enhanceSummary = async (req, res) => {
+  console.log("✅ AI Enhance API called");
+  console.log("🧠 Request body:", req.body);
 
-         }
-
-  const response =  await openai.chat.completions.create({
-             model: process.env.OPENAI_MODEL,
-    messages: [
-        { role: "system", content: "You are an expert in resume writing. Your task is to enhance the professional summary of a resume. The summary should be 1-2 sentences also highlighting key skills, experience, and career objectives. Make it compelling and ATS-Friendly. and only return text no options or anyhting else." },
-        {
-            role: "user",
-            content: userContent,
-        },
-    ],
-         }) 
-
-         const enhanceContent = response.choices[0].message.content;
-       return  res.status(200).json({enhanceContent});
-
-           } catch (error) {
-        return res.status(400).json({message:error.message});
+  try {
+    const { userContent } = req.body;
+    if (!userContent) {
+      console.warn("⚠️ Missing userContent in request");
+      return res.status(400).json({ message: "missing required fields" });
     }
-}
+
+    const response = await openai.chat.completions.create({
+      model: process.env.OPENAI_MODEL,
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are an expert in resume writing. Your task is to enhance the professional summary of a resume. The summary should be 1-2 sentences highlighting key skills, experience, and career objectives. Make it compelling and ATS-friendly. Only return plain text.",
+        },
+        { role: "user", content: userContent },
+      ],
+    });
+
+    const enhanceContent = response.choices[0].message.content;
+    console.log("✅ OpenAI response received");
+    res.status(200).json({ enhanceContent });
+  } catch (error) {
+    console.error("❌ AI Enhance API Error:", error.message);
+    res.status(400).json({ message: error.message });
+  }
+};
+
 
 // enhancejob decription
 
