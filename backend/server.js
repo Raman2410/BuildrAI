@@ -12,11 +12,12 @@ const PORT = process.env.PORT || 3000;
 
 await connectDB();
 app.use(express.json());
-app.use( cors({
-    origin: "http://localhost:5173", // your React app URL
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"], // ✅ add this
-  }));
+app.use(cors({
+  origin: ["http://localhost:5173", "http://localhost:5174"], // allow both
+  credentials: true,
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
+
 
 app.get('/',(req,res)=>{
     res.send('Server is live...');
