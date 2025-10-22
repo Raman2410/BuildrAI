@@ -14,7 +14,8 @@ const SummaryForm = ({data , onChange , setResumeData}) => {
         setISGenerating(true);
         const prompt = `enhance my professional summary "${data}"`;
         const response = await api.post('/api/ai/enhance-pro-sum',{userContent:prompt},{headers:{Authorization:token}});
-        setResumeData(prev=>({...prev,professional_summary:response.data.enhancedContent}));
+        // Fixed: Changed enhancedContent to enhanceContent to match backend response
+        setResumeData(prev=>({...prev,professional_summary:response.data.enhanceContent}));
       } catch (error) {
         toast.error(error.message);
       }
