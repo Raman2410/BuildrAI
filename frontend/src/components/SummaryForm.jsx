@@ -10,20 +10,35 @@ const SummaryForm = ({data , onChange , setResumeData}) => {
     const [isGenerating,setISGenerating] = React.useState(false);
 
     const generateSummary = async () => {
-      console.log("button is clicked")
-      try {
-        setISGenerating(true);
-        const prompt = `enhance my professional summary "${data}"`;
-        const response = await api.post('/api/ai/enhance-pro-sum',{userContent:prompt},{headers:{Authorization:token}});
-        // Fixed: Changed enhancedContent to enhanceContent to match backend response
-        setResumeData(prev=>({...prev,professional_summary:response.data.enhanceContent}));
-      } catch (error) {
-        toast.error(error.message);
-      }
-      finally{
-        setISGenerating(false);
-      }
-    }
+  if (!data || data.trim() === "") {
+    toast.error("Please enter your summary before enhancing.");
+    return;
+  }
+
+  try {
+    console.log("🧠 Sending prompt:", data);
+    setISGenerating(true);
+
+    const prompt = `Enhance my professional summary: "${data}"`;
+    const response = await api.post(
+      "/api/ai/enhance-pro-sum",
+      { userContent: prompt },
+      { headers: { Authorization: token } }
+    );
+
+    console.log("✅ API Response:", response.data);
+    setResumeData(prev => ({
+      ...prev,
+      professional_summary: response.data.enhanceContent,
+    }));
+  } catch (error) {
+    console.error("❌ Error:", error);
+    toast.error(error.message);
+  } finally {
+    setISGenerating(false);
+  }
+};
+
   return (
     <div className='space-y-4'>
            <div className='flex items-center justify-between'>
@@ -31,11 +46,22 @@ const SummaryForm = ({data , onChange , setResumeData}) => {
                 <h3 className='flex items-center gap-2 text-sm font-semibold text-gray-900'>Professional Summary</h3>
                 <p className='text-sm text-gray-500'>Add summary for your resume...</p>
             </div>
-            <button disabled={isGenerating} onClick={generateSummary}  className='flex items-center gap-2 px-3 py-1 text-sm bg-purple-100 text-purple-700 rounded hover:bg-purple-200 transition-colors disabled:opacity-50'>
-              {isGenerating ? (<Loader2 className='size-4 animate-spin'/>):( <Sparkles className='size-4'/>)}
-                {isGenerating ? "Generating...": "AI Enhance"}
-              
-            </button>
+           <button
+  disabled={isGenerating}
+  onClick={() => {
+    console.log("🟢 AI Enhance button clicked");
+    generateSummary();
+  }}
+  className="flex items-center gap-2 px-3 py-1 text-sm bg-purple-100 text-purple-700 rounded hover:bg-purple-200 transition-colors disabled:opacity-50"
+>
+  {isGenerating ? (
+    <Loader2 className="size-4 animate-spin" />
+  ) : (
+    <Sparkles className="size-4" />
+  )}
+  {isGenerating ? "Generating..." : "AI Enhance"}
+</button>
+
            </div>
   
    <div className='mt-6'>

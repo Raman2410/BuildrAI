@@ -131,6 +131,8 @@ const ResumeBuild = () => {
       console.log("Error saving resume:",error)
     }
   }
+  // console.log("🧩 Current activeSection:", activeSection);
+
   return (
     <div>
       <div className="nax-w-7xl mx-auto px-4 py-6">
