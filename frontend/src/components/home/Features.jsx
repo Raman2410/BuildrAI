@@ -1,58 +1,115 @@
-import React, { useState } from 'react';
-import {Zap} from 'lucide-react';
-import Title from './Title';
+import React from 'react';
+import { Zap, FileText, Download, Upload, CheckCircle2 } from 'lucide-react';
+
 const Features = () => {
-      const [isHover, setIsHover] = useState(false);
+  const features = [
+    {
+      icon: <Zap className="size-6 text-blue-400" />,
+      title: "AI-Powered Job-Fit Optimizer",
+      description: "Instantly analyze your resume against job descriptions and get suggestions to maximize your chances of passing ATS."
+    },
+    {
+      icon: <Upload className="size-6 text-purple-400" />,
+      title: "Effortless Document Migration",
+      description: "Upload your existing resume in any format (PDF, DOCX) and let our system automatically populate your data."
+    },
+    {
+      icon: <Download className="size-6 text-pink-400" />,
+      title: "Download-Ready Formats",
+      description: "Export your final resume in multiple, pixel-perfect formats—PDF, DOCX, or direct share link."
+    }
+  ];
+
   return (
-     <div id='features' className='flex flex-col items-center my-10 scroll-mt-12'>
+    <div id="features" className="py-24 bg-slate-950 relative overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-900/10 rounded-full blur-[120px] pointer-events-none" />
 
-
-          <div className="flex items-center gap-2 text-sm text-blue-800 bg-blue-400/10 border border-indigo-200 rounded-full px-4 py-1">
-           <Zap width={14}/>
-            <span>Simple Process</span>
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-900/30 border border-blue-800 text-blue-300 text-xs font-medium mb-6">
+            <Zap className="size-3" />
+            <span>Powerful Features</span>
+          </div>
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+            Everything you need to <br/>
+            <span className="text-gradient">land your dream job</span>
+          </h2>
+          <p className="text-slate-400 text-lg">
+            Our streamlined process helps you create a professional resume in minutes with the help of AI-powered tools.
+          </p>
         </div>
-        <Title title='Build your resume' description='Our streamlined process helps you create a professional resume in minutes with the help of AI-powered tools.'/>
-            <div className="flex flex-col md:flex-row items-center justify-center xl:-mt-10">
-                <img className="max-w-2xl w-full xl:-ml-32" src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/features/group-image-1.png" alt="" />
-                <div className="px-4 md:px-0" onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
-                    <div className={"flex items-center justify-center gap-6 max-w-md group cursor-pointer"}>
-                        <div className={`p-6 group-hover:bg-blue-100 border border-transparent group-hover:border-blue-300  flex gap-4 rounded-xl transition-colors ${!isHover ? 'border-blue-300 bg-blue-100' : ''}`}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="size-6 stroke-blue-600"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z" /><circle cx="16.5" cy="7.5" r=".5" fill="currentColor" /></svg>
-                            <div className="space-y-2">
-                                <h3 className="text-base font-semibold text-slate-700">AI-Powered Job-Fit Optimizer</h3>
-                                <p className="text-sm text-slate-600 max-w-xs">Instantly analyze your resume against job descriptions and get suggestions to maximize your chances of passing Applicant Tracking Systems (ATS).</p>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {features.map((feature, index) => (
+            <div key={index} className="glass-card p-8 rounded-2xl group hover:-translate-y-2 transition-transform duration-300">
+              <div className="size-12 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                {feature.icon}
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-3">{feature.title}</h3>
+              <p className="text-slate-400 leading-relaxed">
+                {feature.description}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* Feature Highlight Section */}
+        <div className="mt-24 glass-card rounded-3xl p-8 md:p-12 border border-slate-800/50 bg-gradient-to-br from-slate-900 to-slate-950">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+                <div className="space-y-6">
+                    <h3 className="text-2xl md:text-3xl font-bold text-white">
+                        Smart Resume Analysis
+                    </h3>
+                    <p className="text-slate-400 text-lg">
+                        Our AI doesn't just format your resume; it understands it. Get real-time feedback on keyword optimization, readability, and impact.
+                    </p>
+                    <ul className="space-y-4">
+                        {[
+                            'Real-time ATS scoring',
+                            'Keyword optimization suggestions',
+                            'Grammar and tone checks',
+                            'Industry-specific templates'
+                        ].map((item, i) => (
+                            <li key={i} className="flex items-center gap-3 text-slate-300">
+                                <CheckCircle2 className="size-5 text-green-500" />
+                                {item}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 blur-2xl opacity-20 rounded-full" />
+                    <div className="relative bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-2xl">
+                        {/* Mock UI */}
+                        <div className="flex items-center justify-between mb-6 border-b border-slate-800 pb-4">
+                            <div className="flex items-center gap-3">
+                                <div className="size-10 rounded-full bg-slate-800" />
+                                <div>
+                                    <div className="h-2 w-24 bg-slate-700 rounded mb-2" />
+                                    <div className="h-2 w-16 bg-slate-800 rounded" />
+                                </div>
+                            </div>
+                            <div className="px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-xs font-medium">
+                                98% Match
                             </div>
                         </div>
-                    </div>
-                    <div className="flex items-center justify-center gap-6 max-w-md group cursor-pointer">
-                        <div className="p-6 group-hover:bg-blue-200 border border-transparent group-hover:border-blue-300 flex gap-4 rounded-xl transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="size-6 stroke-blue-600"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" /><path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z" /></svg>
-                            <div className="space-y-2">
-                                <h3 className="text-base font-semibold text-slate-700">Effortless Document Migration</h3>
-                                <p className="text-sm text-slate-600 max-w-xs">Upload your existing resume in any format (PDF, DOCX) and let our system automatically populate and update your data into a modern template.</p>
-                            </div>
+                        <div className="space-y-3">
+                            <div className="h-2 w-full bg-slate-800 rounded" />
+                            <div className="h-2 w-5/6 bg-slate-800 rounded" />
+                            <div className="h-2 w-4/6 bg-slate-800 rounded" />
                         </div>
-                    </div>
-                    <div className="flex items-center justify-center gap-6 max-w-md group cursor-pointer">
-                        <div className="p-6 group-hover:bg-blue-300 border border-transparent group-hover:border-blue-300 flex gap-4 rounded-xl transition-colors">
-                            <svg className="size-6 stroke-blue-600" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 15V3" /><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><path d="m7 10 5 5 5-5" /></svg>
-                            <div className="space-y-2">
-                                <h3 className="text-base font-semibold text-slate-700">Download-Ready Professional Formats</h3>
-                                <p className="text-sm text-slate-600 max-w-xs">Export your final resume in multiple, pixel-perfect formats—PDF, DOCX, or direct share link—ready for any application process.</p>
-                            </div>
+                        <div className="mt-6 flex gap-3">
+                            <div className="h-8 w-24 bg-blue-600 rounded-lg" />
+                            <div className="h-8 w-24 bg-slate-800 rounded-lg" />
                         </div>
                     </div>
                 </div>
             </div>
-            <style>{`
-                @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-            
-                * {
-                    font-family: 'Poppins', sans-serif;
-                }
-            `}</style>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
-  
-export default Features
+
+export default Features;

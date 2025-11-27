@@ -8,35 +8,42 @@ import toast from 'react-hot-toast';
 const Login = () => {
     const dispatch = useDispatch();
 
-  const query = new URLSearchParams(window.location.search);
-  const urlState = query.get("state");
-    const [state, setState] = useState(  urlState||"login")
+    const query = new URLSearchParams(window.location.search);
+    const urlState = query.get("state");
+    const [state, setState] = useState(urlState || "login");
 
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         password: ''
-    })
+    });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const {data} = await api.post(`/api/users/${state}`,formData);
+            const { data } = await api.post(`/api/users/${state}`, formData);
+            
+            // Save both token AND user to localStorage
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            
+            // Dispatch to Redux
             dispatch(login(data));
-            localStorage.setItem('token',data.token);
+            
             toast.success(data.message);
             
         } catch (error) {
             toast(error?.response?.data?.message || error.message);
             console.log(error.message);
         }
-
-    }
+    };
 
     const handleChange = (e) => {
-        const { name, value } = e.target
-        setFormData(prev => ({ ...prev, [name]: value }))
-    }
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    // ... rest of your component
 
   return (
     <div className='flex items-center justify-center min-h-screen bg-gradient-to-r from-white via-blue-200/60 to white'>

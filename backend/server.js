@@ -6,18 +6,20 @@ import userRouter from "./routes/userRoutes.js";
 import resumeRouter from "./routes/resumeRoutes.js";
 import aiRouter from "./routes/aiRoutes.js";
 
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 await connectDB();
-app.use(express.json());
+
+// CORS must come BEFORE other middleware
 app.use(cors({
-  origin: ["http://localhost:5173", "http://localhost:5174"], // allow both
+  origin: ["http://localhost:5173", "http://localhost:5174"],
   credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
+app.use(express.json());
 
 app.get('/',(req,res)=>{
     res.send('Server is live...');
