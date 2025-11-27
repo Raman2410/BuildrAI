@@ -134,11 +134,11 @@ const ResumeBuild = () => {
   // console.log("🧩 Current activeSection:", activeSection);
 
   return (
-    <div>
-      <div className="nax-w-7xl mx-auto px-4 py-6">
+    <div className="min-h-screen bg-slate-950 text-white">
+      <div className="max-w-7xl mx-auto px-4 py-6">
         <Link
           to="/app"
-          className="inline-flex gap-2 items-center text-slate-500 hover:text-slate-700 transition-all"
+          className="inline-flex gap-2 items-center text-slate-400 hover:text-white transition-all"
         >
           <ArrowLeftIcon className="size-4" /> Back to Dashboard
         </Link>
@@ -147,12 +147,12 @@ const ResumeBuild = () => {
       <div className="max-w-7xl mx-auto px-4 pb-8">
         <div className="grid lg:grid-cols-12 gap-8">
           {/* Left Panel - form */}
-          <div className="relative lg:col-span-5 rounded-lg overflow-hidden">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 pt-1">
+          <div className="relative lg:col-span-5 rounded-xl overflow-hidden">
+            <div className="bg-slate-900 rounded-xl shadow-lg border border-slate-800 p-6 pt-1">
               {/* progress bar using activeSectionIndex */}
-              <hr className="absolute top-0 left-0 right-0 border-2 border-gray-200" />
-              <hr
-                className="absolute top-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-blue-600 border-none transition-all duration-200"
+              <div className="absolute top-0 left-0 right-0 h-1 bg-slate-800" />
+              <div
+                className="absolute top-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-300"
                 style={{
                   width: `${
                     (activeSectionIndex * 100) / (sections.length - 1)
@@ -161,8 +161,8 @@ const ResumeBuild = () => {
               />
 
               {/* section navigation */}
-              <div className="flex justify-between items-center mb-6 border-b border-gray-300 py-1">
-                <div className="flex items-center gap-2">
+              <div className="flex justify-between items-center mb-6 border-b border-slate-800 py-4">
+                <div className="flex items-center gap-3">
                   <TemplateSelector
                     selectedTemplate={resumeData.template}
                     onChange={(template) =>
@@ -181,26 +181,21 @@ const ResumeBuild = () => {
                   />
                 </div>
 
-                <div className="flex items-center">
-                  {activeSectionIndex !== 0 && (
-                    <button
-                      className="flex items-center gap-1 p-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-all"
-                      disabled={activeSectionIndex === 0}
-                      onClick={() =>
-                        setActiveSectionIndex((prevIndex) =>
-                          Math.max(prevIndex - 1, 0)
-                        )
-                      }
-                    >
-                      <ChevronLeft className="size-4" />
-                      Previous
-                    </button>
-                  )}
+                <div className="flex items-center gap-2">
+                  <button
+                    className="flex items-center gap-1 p-2 rounded-lg text-sm font-medium text-slate-400 hover:bg-slate-800 hover:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={activeSectionIndex === 0}
+                    onClick={() =>
+                      setActiveSectionIndex((prevIndex) =>
+                        Math.max(prevIndex - 1, 0)
+                      )
+                    }
+                  >
+                    <ChevronLeft className="size-4" />
+                  </button>
 
                   <button
-                    className={`flex items-center gap-1 p-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-all ${
-                      activeSectionIndex === sections.length - 1 && "opacity-50"
-                    }`}
+                    className="flex items-center gap-1 p-2 rounded-lg text-sm font-medium text-slate-400 hover:bg-slate-800 hover:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                     disabled={activeSectionIndex === sections.length - 1}
                     onClick={() =>
                       setActiveSectionIndex((prevIndex) =>
@@ -208,7 +203,7 @@ const ResumeBuild = () => {
                       )
                     }
                   >
-                    Next <ChevronRight className="size-4" />
+                    <ChevronRight className="size-4" />
                   </button>
                 </div>
               </div>
@@ -266,43 +261,45 @@ const ResumeBuild = () => {
                       onChange={(data)=> setResumeData((prev) =>({...prev,skills: data}))}  />
                     )}
                 </div>
-                <button onClick={()=>{toast.promise(saveResume,{loading:'Saving...'})}} className="bg-gradient-to-br from-blue-100 to-blue-200 ring-blue-300 text-blue-700  ring hover:ring-blue-400 transition-all rounded-md px-6 py-2 mt-6 text-sm">Save Changes</button>
+                <button onClick={()=>{toast.promise(saveResume,{loading:'Saving...'})}} className="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-xl px-6 py-3 mt-8 transition-all shadow-lg shadow-blue-500/25">Save Changes</button>
               </div>
             </div>
           </div>
 
           {/* Right Panel */}
           <div className="lg:col-span-7 max-lg:mt-6">
-            <div className="relative w-full">
+            <div className="relative w-full mb-4">
 
-              <div className="absolute bottom-3 left-0 right-0 flex items-center justify-end gap-2">
+              <div className="flex items-center justify-end gap-3">
                 {
                   resumeData.public && (
-                    <button onClick={shareResume} className="flex items-center p-2 px-4 gap-2 text-xs bg-gradient-to-br from-blue-100 to-blue-200 text-blue-600 rounded-lg ring-blue-300 hover:ring transition-colors">
+                    <button onClick={shareResume} className="flex items-center p-2 px-4 gap-2 text-sm bg-slate-800 border border-slate-700 text-slate-300 rounded-lg hover:border-blue-500 hover:text-white transition-all">
                       <Share2Icon className="size-4"/>Share
                     </button>
                   )
                 }
 
-                <button onClick={changeResumevisibility} className="flex items-center p-2 px-4 gap-2 text-xs bg-gradient-to-br from-blue-100 to-blue-200 text-blue-600 ring-blue-300 rounded-lg hover:ring transition-colors">
+                <button onClick={changeResumevisibility} className="flex items-center p-2 px-4 gap-2 text-sm bg-slate-800 border border-slate-700 text-slate-300 rounded-lg hover:border-blue-500 hover:text-white transition-all">
                   {resumeData.public ? <EyeIcon className="size-4"/> :
                   <EyeOffIcon className="size-4"/>}
                   {resumeData.public ? "Public" : "Private"}
                 </button>
 
-                <button onClick={downloadResume} className="flex items-center p-2 px-4 gap-2 text-xs bg-gradient-to-br from-green-100 to-green-200 text-green-600 ring-green-300 rounded-lg hover:ring transition-colors">
-                  <Download className="size-4"/>Download
+                <button onClick={downloadResume} className="flex items-center p-2 px-4 gap-2 text-sm bg-green-600 text-white rounded-lg hover:bg-green-500 transition-all shadow-lg shadow-green-500/20">
+                  <Download className="size-4"/>Download PDF
                 </button>
 
               </div>
             </div>
 
             {/* resume preview */}
-            <ResumePreview
-              data={resumeData}
-              template={resumeData.template}
-              accentColor={resumeData.accent_color}
-            />
+            <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-4">
+                <ResumePreview
+                data={resumeData}
+                template={resumeData.template}
+                accentColor={resumeData.accent_color}
+                />
+            </div>
           </div>
         </div>
       </div>

@@ -46,32 +46,40 @@ const Login = () => {
     // ... rest of your component
 
   return (
-    <div className='flex items-center justify-center min-h-screen bg-gradient-to-r from-white via-blue-200/60 to white'>
-       <form onSubmit={handleSubmit} className="sm:w-[350px] w-full text-center border border-gray-300/60 rounded-2xl px-8 bg-white">
-                <h1 className="text-gray-900 text-3xl mt-10 font-medium">{state === "login" ? "Login" : "Sign up"}</h1>
-                <p className="text-gray-500 text-sm mt-2">Please {state} to continue</p>
+    <div className='flex items-center justify-center min-h-screen bg-slate-950 relative overflow-hidden'>
+        {/* Background Elements */}
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-purple-700/20 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-700/20 rounded-full blur-[120px] pointer-events-none" />
+
+       <form onSubmit={handleSubmit} className="sm:w-[350px] w-full text-center border border-slate-800 rounded-2xl px-8 py-10 glass-card relative z-10">
+                <div className="size-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/20 mx-auto mb-6">
+                  <span className="text-xl font-bold text-white">B</span>
+                </div>
+                <h1 className="text-white text-3xl font-bold mb-2">{state === "login" ? "Welcome Back" : "Create Account"}</h1>
+                <p className="text-slate-400 text-sm mb-8">Please {state} to continue</p>
                 {state !== "login" && (
-                    <div className="flex items-center mt-6 w-full bg-white border border-gray-300/80 h-12 rounded-full overflow-hidden pl-6 gap-2">
-                        <User2Icon size={16} color='#6B7280'/>
-                        <input type="text" name="name" placeholder="Name" className="border-none outline-none ring-0" value={formData.name} onChange={handleChange} required />
+                    <div className="flex items-center mb-4 w-full bg-slate-900/50 border border-slate-700 h-12 rounded-xl overflow-hidden pl-4 gap-3 focus-within:border-blue-500 transition-colors">
+                        <User2Icon size={18} className="text-slate-400"/>
+                        <input type="text" name="name" placeholder="Full Name" className="bg-transparent border-none outline-none text-white w-full placeholder-slate-500" value={formData.name} onChange={handleChange} required />
                     </div>
                 )}
-                <div className="flex items-center w-full mt-4 bg-white border border-gray-300/80 h-12 rounded-full overflow-hidden pl-6 gap-2">
-                   <Mail size={13} color="#6B7280"/>
-                    <input type="email" name="email" placeholder="Email id" className="border-none outline-none ring-0" value={formData.email} onChange={handleChange} required />
+                <div className="flex items-center mb-4 w-full bg-slate-900/50 border border-slate-700 h-12 rounded-xl overflow-hidden pl-4 gap-3 focus-within:border-blue-500 transition-colors">
+                   <Mail size={18} className="text-slate-400"/>
+                    <input type="email" name="email" placeholder="Email Address" className="bg-transparent border-none outline-none text-white w-full placeholder-slate-500" value={formData.email} onChange={handleChange} required />
                 </div>
-                <div className="flex items-center mt-4 w-full bg-white border border-gray-300/80 h-12 rounded-full overflow-hidden pl-6 gap-2">
-                   <Lock size={13} color="#6B7280"/>
-                    <input type="password" name="password" placeholder="Password" className="border-none outline-none ring-0" value={formData.password} onChange={handleChange} required />
+                <div className="flex items-center mb-6 w-full bg-slate-900/50 border border-slate-700 h-12 rounded-xl overflow-hidden pl-4 gap-3 focus-within:border-blue-500 transition-colors">
+                   <Lock size={18} className="text-slate-400"/>
+                    <input type="password" name="password" placeholder="Password" className="bg-transparent border-none outline-none text-white w-full placeholder-slate-500" value={formData.password} onChange={handleChange} required />
                 </div>
-                <div className="mt-4 text-left text-indigo-500">
-                    <button className="text-sm" type="reset">Forget password?</button>
-                </div>
-                <button type="submit" className="mt-2 w-full h-11 rounded-full text-white bg-indigo-500 hover:opacity-90 transition-opacity">
-                    {state === "login" ? "Login" : "Sign up"}
+                
+                <button type="submit" className="w-full h-12 rounded-xl text-white font-medium bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-lg hover:shadow-purple-500/25 transition-all active:scale-95">
+                    {state === "login" ? "Sign In" : "Sign Up"}
                 </button>
-                <p onClick={() => setState(prev => prev === "login" ? "register" : "login")} className="text-gray-500 text-sm mt-3 mb-11">{state === "login" ? "Don't have an account?" : "Already have an account?"} <a href="#" className="text-indigo-500 hover:underline">click here</a></p>
-            </form></div>
+                <p onClick={() => setState(prev => prev === "login" ? "register" : "login")} className="text-slate-400 text-sm mt-6 cursor-pointer hover:text-white transition-colors">
+                    {state === "login" ? "Don't have an account?" : "Already have an account?"} <span className="text-blue-400 font-medium ml-1">Click here</span>
+                </p>
+            </form>
+    </div>
   )
 }
 

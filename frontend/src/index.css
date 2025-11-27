@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Ubuntu&family=Varela+Round&display=swap');
 @import "tailwindcss";
 
@@ -7,21 +6,26 @@
 }
 
 @layer base{
+    body {
+        @apply bg-slate-950 text-white;
+    }
     button{
         @apply cursor-pointer;
     }
     input:not([type="checkbox"]){
-        @apply outline-none focus:ring border border-gray-300 focus:ring-blue-500 focus:border-blue-500 rounded-lg;
+        @apply outline-none focus:ring border border-slate-700 bg-slate-900 text-white placeholder-slate-500 focus:ring-blue-500 focus:border-blue-500 rounded-lg;
     }
     textarea{
-       @apply outline-none focus:ring border border-gray-300 focus:ring-blue-500 focus:border-blue-500 rounded-lg resize-none;
-}
-}
+       @apply outline-none focus:ring border border-slate-700 bg-slate-900 text-white placeholder-slate-500 focus:ring-blue-500 focus:border-blue-500 rounded-lg resize-none;
+    }
+    select {
+        @apply outline-none focus:ring border border-slate-700 bg-slate-900 text-white focus:ring-blue-500 focus:border-blue-500 rounded-lg;
+    }
 }
 
 @layer utilities {
   .glass-nav {
-    @apply backdrop-blur-md bg-slate-900/70 border-b border-slate-800;
+    @apply backdrop-blur-md bg-slate-900/80 border-b border-slate-800;
   }
   .glass-card {
     @apply backdrop-blur-sm bg-slate-900/50 border border-slate-800 hover:border-slate-700 transition-all duration-300;
